@@ -13,7 +13,7 @@ def driver(request):
 
 
 def test_example(driver):
-    # Doesn't work at all for Opera 43, opera opens and closes in a moment
+    # Doesn't work at all for Opera 43, opera opens with "data:," in ULR field
     # driver https://github.com/operasoftware/operachromiumdriver/releases/tag/v0.2.2
     driver.get("https://webrtc.github.io/samples/src/content/peerconnection/audio/")
     time.sleep(5)
