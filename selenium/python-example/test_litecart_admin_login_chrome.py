@@ -8,10 +8,10 @@ from selenium.webdriver.support import expected_conditions as EC
 @pytest.fixture
 def driver(request):
     # 1) Chrome:
-    wd = webdriver.Chrome()
+    # wd = webdriver.Chrome()
 
     # 2) Firefox:
-    # wd = webdriver.Firefox()
+    wd = webdriver.Firefox(firefox_binary='c:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe')
 
     # 3) Edge:
     # wd = webdriver.Edge()
@@ -24,6 +24,7 @@ def driver(request):
     # wd = webdriver.Firefox(capabilities={"marionette": True},
     #                       firefox_binary="c:\\Program Files (x86)\\Nightly\\firefox.exe")
 
+    print(wd.capabilities)
     request.addfinalizer(wd.quit)
     return wd
 
