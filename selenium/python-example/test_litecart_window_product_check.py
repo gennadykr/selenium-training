@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.color import Color
 
 @pytest.fixture
 def driver(request):
@@ -20,15 +21,6 @@ def driver(request):
     request.addfinalizer(wd.quit)
     return wd
 
-def get_rgba_array(rgba_string):
-    # Simpler way?
-    rgba_string = rgba_string.split('(')[1]
-    rgba_string = rgba_string.split(')')[0]
-    rgba_array = rgba_string.split(',')
-    for x in range(0, len(rgba_array)):
-        rgba_array[x] = int(rgba_array[x])
-    return rgba_array
-
 def style_check(old_price_element,new_price_element):
     # How to check stroke and bold styles in any browser? I cannot find text-decoration for stroke in FF.
     # So I use "s"-tag for stroke and "strong"-tag for bold checks
@@ -36,17 +28,17 @@ def style_check(old_price_element,new_price_element):
     # check grey:
     old_price_color = old_price_element.value_of_css_property("color")
     print(old_price_color)
-    old_price_color = get_rgba_array(old_price_color)
-    assert old_price_color[0] == old_price_color[0]
-    assert old_price_color[1] == old_price_color[2]
+    old_price_color = Color.from_string(old_price_color)
+    assert old_price_color.red == old_price_color.green
+    assert old_price_color.green == old_price_color.blue
 
     # check red:
     new_price_color = new_price_element.value_of_css_property("color")
     print(new_price_color)
-    new_price_color = get_rgba_array(new_price_color)
-    assert new_price_color[0] > 0
-    assert new_price_color[1] == 0
-    assert new_price_color[2] == 0
+    new_price_color = Color.from_string(new_price_color)
+    assert new_price_color.red > 0
+    assert new_price_color.green == 0
+    assert new_price_color.blue == 0
 
     # compare size, namely the height
     old_price_size = old_price_element.size
@@ -54,7 +46,6 @@ def style_check(old_price_element,new_price_element):
     new_price_size = new_price_element.size
     print(new_price_size)
     assert old_price_size['height'] < new_price_size['height']
-
 
 def test_campaigns(driver):
     wait = WebDriverWait(driver, 15)
