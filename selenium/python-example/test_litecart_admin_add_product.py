@@ -45,7 +45,7 @@ def test_example(driver):
     # Fill the form
     product_name = 'Chizhik-Pyzhik'
     product_code = 'ch001'
-    product_image = os.path.abspath('chizhik_pyzhik.jpg')
+    product_image = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)),'chizhik_pyzhik.jpg'))
 
     tab_general = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR , "#tab-general")))[0]
     tab_general.find_element(By.CSS_SELECTOR,"input[type=radio]").click()
@@ -60,7 +60,5 @@ def test_example(driver):
     selector.select_by_visible_text('Temporary sold out')
 
     tab_general.find_element(By.CSS_SELECTOR,"input[name='new_images[]'").send_keys(product_image)
-    #Edge: no file name in the field !
-    #Firefox: file not found !
 
     time.sleep(5)
