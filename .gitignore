@@ -93,3 +93,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+selenium/.idea/workspace_bkp.xml
+selenium/.idea/workspace.xml

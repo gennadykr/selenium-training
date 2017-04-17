@@ -57,12 +57,12 @@ def test_cart(driver):
     #cart_item_quantity_element.find_element(By.XPATH,".//..").click()
 
     # Remove products:
-    products_shortcuts = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR , ".shortcuts a")))
-    while len(products_shortcuts) > 0:
-        products_shortcuts[0].click()
+    wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR , "#customer-service-wrapper")))
+    remove_buttons = driver.find_elements(By.CSS_SELECTOR , "button[name=remove_cart_item]")
+    while len(remove_buttons) > 0:
         first_table_line = driver.find_elements(By.CSS_SELECTOR,".dataTable.rounded-corners tr:not(.header)")[0]
-        wait.until(EC.visibility_of(driver.find_elements(By.CSS_SELECTOR , "button[name=remove_cart_item]")[0])).click()
+        wait.until(EC.visibility_of(remove_buttons[0])).click()
         wait.until(EC.staleness_of(first_table_line))
-        products_shortcuts = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR , ".shortcuts a")))
+        remove_buttons = driver.find_elements(By.CSS_SELECTOR , "button[name=remove_cart_item]")
 
     time.sleep(3)
