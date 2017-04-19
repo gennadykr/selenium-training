@@ -12,11 +12,13 @@ import os
 @pytest.fixture
 def driver(request):
     # 1) Chrome:
-    wd = webdriver.Chrome()
+    # wd = webdriver.Chrome()
     # 2) Firefox:
     # wd = webdriver.Firefox()
     # 3) Edge:
-    # wd = webdriver.Edge()
+    # -fixed: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/11640597/
+    wd = webdriver.Edge()
+
     # print(wd.capabilities)
     request.addfinalizer(wd.quit)
     return wd
@@ -58,6 +60,7 @@ def test_countries(driver):
         new_window_links[x].click()
         new_window = wait.until(there_is_window_other_than(old_windows))
         driver.switch_to_window(new_window)
+        #time.sleep(2)
         print(driver.title)
         driver.close()
         driver.switch_to_window(main_window)
