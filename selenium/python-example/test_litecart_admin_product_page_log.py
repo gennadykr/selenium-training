@@ -14,6 +14,7 @@ def driver(request):
     # 1) Chrome:
     wd = webdriver.Chrome()
 
+    # it is suitable for telerik proxy, http://www.telerik.com/fiddler (Windows):
     #wd = webdriver.Chrome(desired_capabilities={"proxy": {"proxyType": "MANUAL", "httpProxy": "localhost:8888"}})
 
     # 2) Firefox:
