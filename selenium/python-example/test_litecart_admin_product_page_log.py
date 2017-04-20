@@ -13,6 +13,9 @@ import os
 def driver(request):
     # 1) Chrome:
     wd = webdriver.Chrome()
+
+    #wd = webdriver.Chrome(desired_capabilities={"proxy": {"proxyType": "MANUAL", "httpProxy": "localhost:8888"}})
+
     # 2) Firefox:
     # wd = webdriver.Firefox()
     # 3) Edge:
